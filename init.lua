@@ -17,7 +17,12 @@ end)
 log = hs.logger.new("mbafford", "debug")
 
 hs.loadSpoon("AppLaunchOrCycle")
-hs.hotkey.bind(invoke_keys, 'g', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Google Chrome'             ) end )
+hs.loadSpoon("ChromePersona")
+
+-- hs.hotkey.bind(invoke_keys, 'g', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Google Chrome'             ) end )
+hs.hotkey.bind(invoke_keys, 'g', function() spoon.ChromePersona:selectPersona('Matthew (Matthew (Personal))') end )
+hs.hotkey.bind(invoke_keys, 'a', function() spoon.ChromePersona:selectPersona('Matthew (Matthew (Work))') end )
+
 hs.hotkey.bind(invoke_keys, 'x', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Firefox'                   ) end )
 hs.hotkey.bind(invoke_keys, 'v', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Code'                      ) end )
 hs.hotkey.bind(invoke_keys, 'i', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('iTerm2'                    ) end )
@@ -26,6 +31,7 @@ hs.hotkey.bind(invoke_keys, 't', function() spoon.AppLaunchOrCycle:launchOrCycle
 hs.hotkey.bind(invoke_keys, 's', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Slack'                     ) end )
 hs.hotkey.bind(invoke_keys, 'e', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Eclipse'                   ) end )
 hs.hotkey.bind(invoke_keys, 'w', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('Cisco WebEx Meeting Center') end )
+hs.hotkey.bind(invoke_keys, 'q', function() spoon.AppLaunchOrCycle:launchOrCycleFocus('SQLWorkbenchJ'             ) end )
 
 hs.loadSpoon("VOIPMute")
 hs.hotkey.bind(invoke_keys, 'm', spoon.VOIPMute.toggleMute)
