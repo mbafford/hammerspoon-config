@@ -6,6 +6,8 @@ obj.author = "Matthew Bafford <matthew.bafford@gmail.com>"
 obj.homepage = "https://github.com/mbafford/hammerspoon-config"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
+local bottomBarOffset = 0
+
 -- find the window to resize, accounting for apps where there are no
 -- windows HammerSpoon can find - those will return nil to indicate no
 -- resize should happen
@@ -38,7 +40,7 @@ function obj:left50()
   f.x = max.x
   f.y = max.y
   f.w = max.w / 2
-  f.h = max.h
+  f.h = (max.h - bottomBarOffset)
   win:setFrame(f)
 end
 
@@ -53,7 +55,7 @@ function obj:right50()
   f.x = max.x + (max.w / 2)
   f.y = max.y
   f.w = max.w / 2
-  f.h = max.h
+  f.h = (max.h - bottomBarOffset)
   win:setFrame(f)
 end
 
@@ -68,7 +70,7 @@ function obj:top50()
   f.x = max.x
   f.y = max.y
   f.w = max.w
-  f.h = max.h / 2
+  f.h = (max.h - bottomBarOffset) / 2
   win:setFrame(f)
 end
 
@@ -81,10 +83,19 @@ function obj:bottom50()
   local max = screen:frame()
 
   f.x = max.x
-  f.y = max.y + (max.h / 2)
+  f.y = max.y + ( (max.h - bottomBarOffset) / 2)
   f.w = max.w
-  f.h = max.h / 2
+  f.h = ( (max.h - bottomBarOffset) / 2 ) 
   win:setFrame(f)
+end
+
+function obj:centerBasedOnScreen()
+    local win = getResizeWindow()
+    if win:screen():currentMode().w > 2000 then
+        obj.centerThird()        
+    else
+        obj.center75()
+    end
 end
 
 function obj:center75()
@@ -98,7 +109,22 @@ function obj:center75()
   f.x = max.x + (max.w / 8)
   f.y = max.y
   f.w = 6*( max.w / 8 )
-  f.h = max.h
+  f.h = (max.h - bottomBarOffset) 
+  win:setFrame(f)
+end
+
+function obj:centerThird()
+  local win = getResizeWindow()
+  if not win then return end
+
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x + 2*(max.w / 8)
+  f.y = max.y
+  f.w = 4*( max.w / 8 )
+  f.h = (max.h - bottomBarOffset) 
   win:setFrame(f)
 end
 
@@ -113,7 +139,7 @@ function obj:fullScreen()
   f.x = max.x
   f.y = max.y
   f.w = max.w
-  f.h = max.h
+  f.h = (max.h - bottomBarOffset)
   win:setFrame(f)
 end
 
